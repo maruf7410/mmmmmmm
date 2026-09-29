@@ -45,6 +45,21 @@ const SESSIONS_META_FILE = path.resolve(DATA_DIR, 'upload_sessions.json');
   }
 });
 
+const defaultJsonFiles: [string, string][] = [
+  [PUBLIC_MAP_FILE, '{\n}\n'],
+  [SLUG_REGISTRY_FILE, '{\n}\n'],
+  [TOKENS_FILE, '[\n]\n'],
+  [AUDIT_LOGS_FILE, '[\n]\n'],
+  [BOTS_REGISTRY_FILE, '[\n]\n'],
+  [SESSIONS_META_FILE, '[\n]\n']
+];
+
+defaultJsonFiles.forEach(([filePath, defaultContent]) => {
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, defaultContent, 'utf-8');
+  }
+});
+
 // ------------------------------------------------------------------------------
 // APPLICATION-LEVEL RATE LIMITING (Requirement 9)
 // ------------------------------------------------------------------------------
